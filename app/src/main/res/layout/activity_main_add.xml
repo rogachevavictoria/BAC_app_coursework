@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_add"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    tools:context="com.example.android.bactrack.MainAdd">
+
+    <TextView
+        android:id="@+id/textView"
+        style="@style/TextHeader"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="50dp"
+        android:text="@string/be_safe_the_legal_limit_is_0_08" />
+
+    <TextView
+        android:id="@+id/bloodAlcoholContent"
+        style="@style/TextHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/gEthanol"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/click_calculate_to_calculate_bac"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/hoursText"
+        style="@style/TextNormal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Hours left until sober." />
+
+    <TextView
+        android:id="@+id/BACest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bloodAlcoholContent"
+        android:layout_centerHorizontal="true"
+        android:text="@string/bac_estimation"
+        android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/gEthanol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/hoursText"
+        android:text="@string/g_ethanol_100ml_bodywater" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="375dp"
+        android:layout_height="360dp"
+        android:layout_below="@+id/textView"
+        android:layout_above="@+id/calculateButton"
+        android:layout_marginBottom="25dp"
+        android:scrollbars="vertical" />
+
+
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/BACest"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="@dimen/activity_main_buttons_vertical_margin"
+        android:text="@string/add" />
+
+    <Button
+        android:id="@+id/settingsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/BACest"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="@dimen/activity_main_buttons_vertical_margin"
+        android:text="@string/settings" />
+
+    <Button
+        android:id="@+id/calculateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/BACest"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="@dimen/activity_main_buttons_vertical_margin"
+        android:layout_toStartOf="@+id/settingsButton"
+        android:layout_toEndOf="@+id/addButton"
+        android:background="@color/colorPrimary"
+        android:text="@string/calculate" />
+</RelativeLayout>
