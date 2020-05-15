@@ -75,7 +75,8 @@ public class MainAdd extends AppCompatActivity implements Dialog.DialogListener,
         calculateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bloodAlcoholContent.setText(String.format("%.3f%%", calculateBAC()));
+                BAC = calculateBAC();
+                bloodAlcoholContent.setText(String.format("%.3f%%", BAC));
                 hoursText.setText(String.format("Hours left until sober: %.2f", hours));
                 saveData();
             }
@@ -126,7 +127,7 @@ public class MainAdd extends AppCompatActivity implements Dialog.DialogListener,
         BAC = 0;
         ethanolGrams = 0;
         for (Drink drink : drinks) {
-            ethanolGrams += drink.getMl() * drink.getPercent();
+            ethanolGrams += (drink.getMl() * drink.getPercent());
         }
         ethanolGrams /= 100;
         BAC = ((0.79) * ethanolGrams * 100) / (userWeight * 1000 * distributionRatio);
@@ -137,11 +138,6 @@ public class MainAdd extends AppCompatActivity implements Dialog.DialogListener,
     }
 
 
-
-    public void changeItem(int position, String text){
-        drinks.get(position).changeName(text);
-        adapter.notifyItemChanged(position);
-    }
 
     public void buildRecyclerView(){
         RecyclerView rv = findViewById(R.id.recycler_view);

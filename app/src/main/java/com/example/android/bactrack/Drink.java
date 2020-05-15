@@ -18,7 +18,7 @@ public class Drink {
         setPercent(percent);
     }
     public void changeMl(double ml){
-        setPercent(ml);
+        setMl(ml);
     }
 
 
