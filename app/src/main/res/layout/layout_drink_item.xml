@@ -15,43 +15,55 @@
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_toLeftOf="@+id/drinkPercent"
+            android:layout_centerInParent="true"
+            android:layout_toStartOf="@+id/drinkPercent"
             android:text="@string/name"
             android:textSize="23sp" />
 
         <TextView
             android:id="@+id/drinkPercent"
             android:layout_width="80dp"
-            android:layout_toLeftOf="@+id/prcnt"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toStartOf="@+id/prcnt"
             android:text="%"
             android:textAlignment="viewEnd"
             android:textSize="20sp" />
 
         <TextView
+            android:id="@+id/prcnt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toStartOf="@+id/drinkMl"
             android:text="%"
-            android:id="@+id/prcnt"
-            android:layout_toLeftOf="@+id/drinkMl"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/drinkMl"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toStartOf="@+id/ml"
             android:text="@string/ml"
-            android:layout_toLeftOf="@+id/ml"
             android:textAlignment="viewEnd"
             android:textSize="20sp" />
 
         <TextView
+            android:id="@+id/ml"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toStartOf="@+id/image_delete"
             android:text="@string/ml"
-            android:id="@+id/ml"
-            android:layout_alignParentRight="true"
             android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/image_delete"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_delete" />
 
     </RelativeLayout>
 

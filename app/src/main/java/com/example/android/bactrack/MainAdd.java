@@ -58,41 +58,7 @@ public class MainAdd extends AppCompatActivity implements Dialog.DialogListener,
         }
 
         buildRecyclerView();
-
-
-        //Buttons
-        //Add a drink
-        addButton = findViewById(R.id.addButton);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDialog();
-            }
-        });
-
-        //Set BAC and hours texts
-        calculateButton = findViewById(R.id.calculateButton);
-        calculateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BAC = calculateBAC();
-                bloodAlcoholContent.setText(String.format("%.3f%%", BAC));
-                hoursText.setText(String.format("Hours left until sober: %.2f", hours));
-                saveData();
-            }
-        });
-
-        //Go to Settings
-        settingsButton = findViewById(R.id.settingsButton);
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainAdd.this, Settings.class);
-                intent.putExtra("From Main", true);
-                startActivity(intent);
-            }
-        });
-
+        setButtons();
 
     }
 
@@ -152,6 +118,10 @@ public class MainAdd extends AppCompatActivity implements Dialog.DialogListener,
             public void onItemClick(int position) {
                 openEditDialog(position);
             }
+            @Override
+            public void onDeleteClick(int position) {
+                removeItem(position);
+            }
         });
     }
 
@@ -175,5 +145,47 @@ public class MainAdd extends AppCompatActivity implements Dialog.DialogListener,
         if (drinks == null){
             drinks = new ArrayList<>();
         }
+    }
+
+    private void removeItem(int position){
+        drinks.remove(position);
+        adapter.notifyItemRemoved(position);
+    }
+
+    //Buttons
+    public void setButtons(){
+
+        //Add a drink
+        addButton = findViewById(R.id.addButton);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog();
+            }
+        });
+
+        //Set BAC and hours texts
+        calculateButton = findViewById(R.id.calculateButton);
+        calculateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BAC = calculateBAC();
+                bloodAlcoholContent.setText(String.format("%.3f%%", BAC));
+                hoursText.setText(String.format("Hours left until sober: %.2f", hours));
+                saveData();
+            }
+        });
+
+        //Go to Settings
+        settingsButton = findViewById(R.id.settingsButton);
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainAdd.this, Settings.class);
+                intent.putExtra("From Main", true);
+                startActivity(intent);
+            }
+        });
+
     }
 }

@@ -3,6 +3,7 @@ package com.example.android.bactrack;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.DrinkViewHolder>{
 
     public interface onItemClickListener{
         void onItemClick(int position);
+        void onDeleteClick(int position);
     }
 
     public void setOnItemClickListener(onItemClickListener listener){
@@ -34,6 +36,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.DrinkViewHolder>{
         public TextView drinkPercent;
         public TextView drinkMl;
         public RelativeLayout parentLayout;
+        public ImageView image_delete;
 
         public DrinkViewHolder(View itemView, final onItemClickListener listener) {
             super(itemView);
@@ -42,6 +45,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.DrinkViewHolder>{
             drinkPercent = itemView.findViewById(R.id.drinkPercent);
             drinkMl = itemView.findViewById(R.id.drinkMl);
             parentLayout = itemView.findViewById(R.id.main_add);
+            image_delete = itemView.findViewById(R.id.image_delete);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -50,6 +54,18 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.DrinkViewHolder>{
                         int position = getAdapterPosition();
                         if(position != RecyclerView.NO_POSITION){
                             listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
+
+            image_delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(listener != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){
+                            listener.onDeleteClick(position);
                         }
                     }
                 }
