@@ -18,26 +18,24 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class MainAdd extends AppCompatActivity implements Dialog.DialogListener, EditDialog.DialogListener  {
-    //Variables declaration:
-    private RVAdapter adapter;
+public class MainAdd extends AppCompatActivity implements Dialog.DialogListener, EditDialog.DialogListener {
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String NAME = "name";
+    public static final String PERCENT = "percent";
+    public static final String ML = "ml";
+    static ArrayList<Drink> drinks;
     double distributionRatio;
     double userWeight;
     int ethanolGrams = 0;
     double BAC = 0;
     double hours = 0;
-    static ArrayList<Drink> drinks;
     TextView bloodAlcoholContent;
     TextView hoursText;
     Button addButton;
     Button calculateButton;
     Button settingsButton;
-    public static final String SHARED_PREFS = "sharedPrefs";
-    public static final String NAME = "name";
-    public static final String PERCENT = "percent";
-    public static final String ML = "ml";
-
-
+    //Variables declaration:
+    private RVAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +67,8 @@ public class MainAdd extends AppCompatActivity implements Dialog.DialogListener,
         dialog.show(getSupportFragmentManager(), "example");
     }
 
-    public void openEditDialog(int position){
-        EditDialog editDialog = new EditDialog(position, drinks.get(position).getName(),drinks.get(position).getPercent(), drinks.get(position).getMl());
+    public void openEditDialog(int position) {
+        EditDialog editDialog = new EditDialog(position, drinks.get(position).getName(), drinks.get(position).getPercent(), drinks.get(position).getMl());
         editDialog.show(getSupportFragmentManager(), "example");
     }
 
@@ -78,6 +76,7 @@ public class MainAdd extends AppCompatActivity implements Dialog.DialogListener,
     public void applyTexts(String name, int percent, int ml) {
         drinks.add(new Drink(name, percent, ml));
         adapter.notifyItemInserted(drinks.size() - 1);
+        saveData();
     }
 
     @Override
@@ -86,6 +85,7 @@ public class MainAdd extends AppCompatActivity implements Dialog.DialogListener,
         drinks.get(position).changePercent(percent);
         drinks.get(position).changeMl(ml);
         adapter.notifyItemChanged(position);
+        saveData();
     }
 
     //Calculate BAC formula
@@ -98,14 +98,13 @@ public class MainAdd extends AppCompatActivity implements Dialog.DialogListener,
         ethanolGrams /= 100;
         BAC = ((0.79) * ethanolGrams * 100) / (userWeight * 1000 * distributionRatio);
         hours = (BAC - 0.02) / 0.016;
-        if(hours<0)
+        if (hours < 0)
             hours = 0;
         return BAC;
     }
 
 
-
-    public void buildRecyclerView(){
+    public void buildRecyclerView() {
         RecyclerView rv = findViewById(R.id.recycler_view);
         rv.setHasFixedSize(true);
         adapter = new RVAdapter(drinks);
@@ -118,6 +117,7 @@ public class MainAdd extends AppCompatActivity implements Dialog.DialogListener,
             public void onItemClick(int position) {
                 openEditDialog(position);
             }
+
             @Override
             public void onDeleteClick(int position) {
                 removeItem(position);
@@ -125,7 +125,7 @@ public class MainAdd extends AppCompatActivity implements Dialog.DialogListener,
         });
     }
 
-    public void saveData(){
+    public void saveData() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
@@ -135,25 +135,26 @@ public class MainAdd extends AppCompatActivity implements Dialog.DialogListener,
         editor.apply();
     }
 
-    private void loadData(){
+    private void loadData() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
         Gson gson = new Gson();
-        String json= sharedPreferences.getString("drinks list", null);
-        Type type = new TypeToken<ArrayList<Drink>>() {}.getType();
+        String json = sharedPreferences.getString("drinks list", null);
+        Type type = new TypeToken<ArrayList<Drink>>() {
+        }.getType();
         drinks = gson.fromJson(json, type);
 
-        if (drinks == null){
+        if (drinks == null) {
             drinks = new ArrayList<>();
         }
     }
 
-    private void removeItem(int position){
+    private void removeItem(int position) {
         drinks.remove(position);
         adapter.notifyItemRemoved(position);
     }
 
     //Buttons
-    public void setButtons(){
+    public void setButtons() {
 
         //Add a drink
         addButton = findViewById(R.id.addButton);
@@ -172,7 +173,6 @@ public class MainAdd extends AppCompatActivity implements Dialog.DialogListener,
                 BAC = calculateBAC();
                 bloodAlcoholContent.setText(String.format("%.3f%%", BAC));
                 hoursText.setText(String.format("Hours left until sober: %.2f", hours));
-                saveData();
             }
         });
 
@@ -181,6 +181,7 @@ public class MainAdd extends AppCompatActivity implements Dialog.DialogListener,
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                saveData();
                 Intent intent = new Intent(MainAdd.this, Settings.class);
                 intent.putExtra("From Main", true);
                 startActivity(intent);

@@ -6,27 +6,30 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 
 
-public class RVAdapter extends RecyclerView.Adapter<RVAdapter.DrinkViewHolder>{
+public class RVAdapter extends RecyclerView.Adapter<RVAdapter.DrinkViewHolder> {
 
     private ArrayList<Drink> drinks;
     private onItemClickListener mListener;
 
-    public RVAdapter( ArrayList<Drink> pdrinks){
+    public RVAdapter(ArrayList<Drink> pdrinks) {
         drinks = pdrinks;
     }
 
-    public interface onItemClickListener{
+    public interface onItemClickListener {
         void onItemClick(int position);
+
         void onDeleteClick(int position);
     }
 
-    public void setOnItemClickListener(onItemClickListener listener){
+    public void setOnItemClickListener(onItemClickListener listener) {
         mListener = listener;
     }
 
@@ -50,9 +53,9 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.DrinkViewHolder>{
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(listener != null){
+                    if (listener != null) {
                         int position = getAdapterPosition();
-                        if(position != RecyclerView.NO_POSITION){
+                        if (position != RecyclerView.NO_POSITION) {
                             listener.onItemClick(position);
                         }
                     }
@@ -62,9 +65,9 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.DrinkViewHolder>{
             image_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(listener != null){
+                    if (listener != null) {
                         int position = getAdapterPosition();
-                        if(position != RecyclerView.NO_POSITION){
+                        if (position != RecyclerView.NO_POSITION) {
                             listener.onDeleteClick(position);
                         }
                     }
@@ -92,6 +95,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.DrinkViewHolder>{
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
+
     @Override
     public int getItemCount() {
         return drinks.size();

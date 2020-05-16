@@ -36,7 +36,6 @@ public class Settings extends AppCompatActivity {
     public static final String BODYTYPE = "bodytype";
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,7 +125,7 @@ public class Settings extends AppCompatActivity {
         return distributionRatio;
     }
 
-    public void saveData(){
+    public void saveData() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS_SETTINGS, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -137,13 +136,12 @@ public class Settings extends AppCompatActivity {
         editor.apply();
     }
 
-    private void loadData(){
+    private void loadData() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS_SETTINGS, Context.MODE_PRIVATE);
-        //userWeight = Double.parseDouble(Objects.requireNonNull(sharedPreferences.getString(WEIGHT, null)));
-        int savedRadioIndex1 = sharedPreferences.getInt(GENDER,0);
-        int savedRadioIndex2 = sharedPreferences.getInt(BODYTYPE,0);
+        int savedRadioIndex1 = sharedPreferences.getInt(GENDER, 0);
+        int savedRadioIndex2 = sharedPreferences.getInt(BODYTYPE, 0);
 
-        userWeightET.setText(sharedPreferences.getString(WEIGHT,null));
+        userWeightET.setText(sharedPreferences.getString(WEIGHT, null));
         gender.check(savedRadioIndex1);
         BodyType.check(savedRadioIndex2);
 

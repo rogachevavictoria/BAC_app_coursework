@@ -18,7 +18,7 @@ public class EditDialog extends androidx.fragment.app.DialogFragment {
     double percent, ml;
     int position;
 
-    public EditDialog(int position, String name, double percent, double ml){
+    public EditDialog(int position, String name, double percent, double ml) {
         this.name = name;
         this.percent = percent;
         this.ml = ml;
@@ -36,8 +36,8 @@ public class EditDialog extends androidx.fragment.app.DialogFragment {
         editTextMl = view.findViewById(R.id.editMl);
 
         editTextName.setText(name);
-        editTextPercent.setText(""+percent);
-        editTextMl.setText(""+ml);
+        editTextPercent.setText("" + percent);
+        editTextMl.setText("" + ml);
 
 
         builder.setView(view)

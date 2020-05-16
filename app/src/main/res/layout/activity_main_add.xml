@@ -26,10 +26,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/gEthanol"
-        android:layout_marginBottom="10dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
         android:text="@string/click_calculate_to_calculate_bac"
         android:textStyle="bold" />
+
     <TextView
         android:id="@+id/hoursText"
         style="@style/TextNormal"
@@ -53,8 +54,8 @@
         android:id="@+id/gEthanol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_above="@+id/hoursText"
+        android:layout_centerHorizontal="true"
         android:text="@string/g_ethanol_100ml_bodywater" />
 
 
@@ -62,8 +63,8 @@
         android:id="@+id/recycler_view"
         android:layout_width="375dp"
         android:layout_height="360dp"
-        android:layout_below="@+id/textView"
         android:layout_above="@+id/calculateButton"
+        android:layout_below="@+id/textView"
         android:layout_marginBottom="25dp"
         android:scrollbars="vertical" />
 

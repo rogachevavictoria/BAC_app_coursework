@@ -5,19 +5,21 @@ public class Drink {
     private double percent;
     private double ml;
 
-    public Drink(String name,  double percent, double ml) {
+    public Drink(String name, double percent, double ml) {
         this.setName(name);
         this.setPercent(percent);
         this.setMl(ml);
     }
 
-    public void changeName(String text){
+    public void changeName(String text) {
         setName(text);
     }
-    public void changePercent(double percent){
+
+    public void changePercent(double percent) {
         setPercent(percent);
     }
-    public void changeMl(double ml){
+
+    public void changeMl(double ml) {
         setMl(ml);
     }
 
