@@ -67,7 +67,6 @@ public class MainAdd extends AppCompatActivity implements Dialog.DialogListener,
         dialog.show(getSupportFragmentManager(), "example");
     }
 
-
     public void openEditDialog(int position) {
         EditDialog editDialog = new EditDialog(position, drinks.get(position).getName(), drinks.get(position).getPercent(), drinks.get(position).getMl());
         editDialog.show(getSupportFragmentManager(), "example");
