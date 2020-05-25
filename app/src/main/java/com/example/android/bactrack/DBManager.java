@@ -1,14 +1,8 @@
 package com.example.android.bactrack;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
-
 public class DBManager {
 
-    private DatabaseHelper dbHelper;
+   /* private DatabaseHelper dbHelper;
 
     private Context context;
 
@@ -37,13 +31,11 @@ public class DBManager {
         return database.insert(DatabaseHelper.DRINKS_TABLE, null, initialValues);
     }
     private void loadDrinks(){
-        try {
             insert("Small Beer",330,5,20,92);
             insert("Large Beer",500,5,25,140);
             insert("Glass of Wine",200,11,20,123);
             insert("Single Shot",20,40,20,45);
             insert("Double Shot",40,40,30,90);
-        }catch (Exception e){};
     }
     public Cursor fetch() {
         String[] columns = new String[] { DatabaseHelper.COL_ID,DatabaseHelper.COL_ID,DatabaseHelper.COL_DRINK_NAME ,
@@ -66,6 +58,6 @@ public class DBManager {
     public void delete(long id) {
         database.delete(DatabaseHelper.DRINKS_TABLE, DatabaseHelper.COL_ID + "=" + id, null);
     }
-
+*/
 
 }

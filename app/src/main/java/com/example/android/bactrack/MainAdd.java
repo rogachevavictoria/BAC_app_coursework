@@ -68,6 +68,7 @@ public class MainAdd extends AppCompatActivity implements Dialog.DialogListener,
     }
 
 
+
     public void openEditDialog(int position) {
         EditDialog editDialog = new EditDialog(position, drinks.get(position).getName(), drinks.get(position).getPercent(), drinks.get(position).getMl());
         editDialog.show(getSupportFragmentManager(), "example");
@@ -160,11 +161,24 @@ public class MainAdd extends AppCompatActivity implements Dialog.DialogListener,
         //Add a drink
         addButton = findViewById(R.id.addButton);
         addButton.setOnClickListener(new View.OnClickListener() {
+            // The code in this method will be executed when the phrases category is clicked on.
+            @Override
+            public void onClick(View view) {
+                // Create a new intent to open the {@link PhrasesActivity}
+                Intent shit = new Intent(MainAdd.this, DrinkListActivity.class);
+
+                // Start the new activity
+                startActivity(shit);
+            }
+        });
+
+        /*addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openDialog();
             }
         });
+*/
 
         //Set BAC and hours texts
         calculateButton = findViewById(R.id.calculateButton);

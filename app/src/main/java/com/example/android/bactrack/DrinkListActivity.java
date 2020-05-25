@@ -1,71 +1,66 @@
 package com.example.android.bactrack;
 
-import android.content.Intent;
-import android.database.Cursor;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cursoradapter.widget.SimpleCursorAdapter;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
 
 public class DrinkListActivity extends AppCompatActivity  {
 
-    private DBManager dbManager;
-    private ListView listView;
-    private SimpleCursorAdapter adapter;
+        private DrinksAdapter mAdapter;
+        private List<DrinkItem> drinksList = new ArrayList<>();
+        private CoordinatorLayout coordinatorLayout;
+        private RecyclerView recyclerView;
 
-    final String[] from = new String[] { DatabaseHelper.COL_ID,DatabaseHelper.COL_ID,DatabaseHelper.COL_DRINK_NAME ,
-            DatabaseHelper.COL_AMOUNT,DatabaseHelper.COL_ALC_CONTENT,DatabaseHelper.COL_COST, DatabaseHelper.COL_ENERGY };
+        private DatabaseHelper db;
 
-    final int[] to = new int[] { R.id.drinkName, R.id.drinkPercent, R.id.drinkMl };
+        @SuppressLint("WrongViewCast")
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_list);
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+            coordinatorLayout = findViewById(R.id.coordinator_layout);
+            recyclerView = findViewById(R.id.recycler_view);
 
-        setContentView(R.layout.fragment_emp_list);
+            db = new DatabaseHelper(this);
 
-        dbManager = new DBManager(this);
-        dbManager.open();
-        Cursor cursor = dbManager.fetch();
+            drinksList.addAll(db.getAllNotes());
 
-        listView = (ListView) findViewById(R.id.list_view);
-        listView.setEmptyView(findViewById(R.id.empty));
+            mAdapter = new DrinksAdapter(this, drinksList);
+            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+            recyclerView.setLayoutManager(mLayoutManager);
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+            recyclerView.addItemDecoration(new MyDividerItemDecoration(this, LinearLayoutManager.VERTICAL, 16));
+            recyclerView.setAdapter(mAdapter);
 
-        adapter = new SimpleCursorAdapter(this, R.layout.layout_drink_item, cursor, from, to, 0);
-        adapter.notifyDataSetChanged();
+            LayoutInflater layoutInflaterAndroid = LayoutInflater.from(getApplicationContext());
+            View view = layoutInflaterAndroid.inflate(R.layout.activity_list, null);
 
-        listView.setAdapter(adapter);
+            recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this,
+                    recyclerView, new RecyclerTouchListener.ClickListener() {
+                @Override
+                public void onClick(View view, final int position) {
+                }
 
-        // OnCLickListiner For List Items
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long viewId) {
-                TextView nameTextView = (TextView) view.findViewById(R.id.drinkName);
-                TextView percentTextView = (TextView) view.findViewById(R.id.drinkPercent);
-                TextView amountTextView = (TextView) view.findViewById(R.id.drinkMl);
+                @Override
+                public void onLongClick(View view, int position) {
 
-                String name = nameTextView.getText().toString();
-                String percent = percentTextView.getText().toString();
-                String amount = amountTextView.getText().toString();
+                }
 
-                Intent modify_intent = new Intent(getApplicationContext(), Dialog.class);
-                modify_intent.putExtra("name", name);
-                modify_intent.putExtra("percent", percent);
-                modify_intent.putExtra("amount", amount);
 
-                startActivity(modify_intent);
-            }
-        });
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
+            }));
+        }
 
 }

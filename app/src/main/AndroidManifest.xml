@@ -12,6 +12,7 @@
         <activity android:name=".Settings" />
         <activity android:name=".MainAdd" />
         <activity android:name=".AboutActivity" />
+        <activity android:name=".DrinkListActivity"/>
         <activity android:name=".StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
